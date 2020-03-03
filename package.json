@@ -1,7 +1,7 @@
 {
   "name": "@pedrobini/react-swipy",
   "author": "Pedro Bini",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "license": "ISC",
   "description": "React swipeable component",
   "main": "dist/react-swipy.min.js",
@@ -21,7 +21,8 @@
   "scripts": {
     "build": "PACKAGE_NAME=react-swipy rollup --config scripts/rollup.config.js",
     "test": "jest",
-    "cover": "npm test -- --coverage"
+    "cover": "npm test -- --coverage",
+    "prepublish": "yarn run build"
   },
   "files": [
     "README.md",
