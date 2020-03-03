@@ -109,9 +109,6 @@ Callback executed when animation ends
 
 Content of the card
 
-#### buttons
-`Function`
-
 #### wrapperHeight
 `String`
 
@@ -121,5 +118,8 @@ Height of the wrapper
 `String`
 
 Width of the wrapper
+
+#### buttons
+`Function`
 
 Function that returns a `left` and `right` function that will force a swipe
