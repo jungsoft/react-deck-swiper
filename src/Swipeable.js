@@ -19,6 +19,8 @@ const SWIPE_CONFIG = {
 };
 
 const DEFAULT_PROPS = {
+  wrapperHeight: "100%",
+  wrapperWidth: "100%",
   limit: 120,
   min: 40,
 };
@@ -131,7 +133,15 @@ export default class Swipeable extends PureComponent {
 
   render() {
     const {offset, swiped, pristine, forced} = this.state;
-    const {children, limit, buttons, min} = this.props;
+
+    const {
+      children,
+      limit,
+      buttons,
+      min,
+      wrapperHeight,
+      wrapperWidth,
+    } = this.props;
 
     return (
       <Fragment>
@@ -150,8 +160,8 @@ export default class Swipeable extends PureComponent {
               style={{
                 opacity,
                 transform: `translateX(${offset}px) rotate(${offset / 10}deg)`,
-                height: "100%",
-                width: "100%",
+                height: wrapperHeight,
+                width: wrapperWidth,
               }}
               onMouseDown={this.onDragStart}
               onTouchStart={this.onDragStart}
