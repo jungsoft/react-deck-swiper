@@ -112,4 +112,14 @@ Content of the card
 #### buttons
 `Function`
 
+#### wrapperHeight
+`String`
+
+Height of the wrapper
+
+#### wrapperWidth
+`String`
+
+Width of the wrapper
+
 Function that returns a `left` and `right` function that will force a swipe
