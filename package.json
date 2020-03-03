@@ -2,7 +2,7 @@
   "name": "@pedrobini/react-swipy",
   "author": "Pedro Bini",
   "repository": "pedro-lb/react-swipy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "ISC",
   "description": "React swipeable component",
   "main": "dist/react-swipy.min.js",
