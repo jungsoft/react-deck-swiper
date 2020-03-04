@@ -1,3 +1,6 @@
+import react from 'react';
+import reactDom from 'react-dom';
+
 import typescript from 'rollup-plugin-typescript2';
 import babel from 'rollup-plugin-babel';
 import commonjs from 'rollup-plugin-commonjs';
@@ -32,6 +35,12 @@ export default {
       rollupCommonJSResolveHack: true,
       clean: true,
     }),
-    commonjs(),
+    commonjs({
+      include: 'node_modules/**',
+      namedExports: {
+        react: Object.keys(react),
+        'react-dom': Object.keys(reactDom),
+      },
+    }),
   ],
 };
