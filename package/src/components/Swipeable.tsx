@@ -35,21 +35,21 @@ export interface RenderButtonsPayload {
 }
 
 export interface SwipeableProps {
+  children: React.ReactChild,
   renderButtons?: (payload: RenderButtonsPayload) => React.Component,
-  onBeforeSwipe: (
+  onBeforeSwipe?: (
     forceSwipe: (direction) => void,
     cancelSwipe: () => void,
     direction: directionEnum,
   ) => void,
-  onSwipe: (
+  onSwipe?: (
     direction: directionEnum,
   ) => void,
-  onAfterSwipe: () => void,
-  children: React.ReactChild,
-  wrapperHeight: string,
-  wrapperWidth: string,
-  limit: number,
-  min: number,
+  onAfterSwipe?: () => void,
+  wrapperHeight?: string,
+  wrapperWidth?: string,
+  limit?: number,
+  min?: number,
 }
 
 export interface SwipeableState {
