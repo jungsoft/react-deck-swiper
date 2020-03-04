@@ -1,12 +1,12 @@
-import React, {PureComponent, Fragment} from "react";
-import {Spring} from "react-spring";
+import React, { PureComponent, Fragment } from 'react';
+import { Spring } from 'react-spring';
 import {
   getDirection,
   getOpacity,
   getOffset,
   withX,
   getLimitOffset,
-} from "./helpers";
+} from '../utils/helpers';
 
 const SWIPE_CONFIG = {
   tension: 390,
@@ -19,8 +19,8 @@ const SWIPE_CONFIG = {
 };
 
 const DEFAULT_PROPS = {
-  wrapperHeight: "100%",
-  wrapperWidth: "100%",
+  wrapperHeight: '100%',
+  wrapperWidth: '100%',
   limit: 120,
   min: 40,
 };
@@ -40,36 +40,36 @@ export default class Swipeable extends PureComponent {
   state = INITIAL_STATE;
 
   componentDidMount() {
-    window.addEventListener("touchmove", this.onDragMove);
-    window.addEventListener("mousemove", this.onDragMove);
-    window.addEventListener("touchend", this.onDragEnd);
-    window.addEventListener("mouseup", this.onDragEnd);
+    window.addEventListener('touchmove', this.onDragMove);
+    window.addEventListener('mousemove', this.onDragMove);
+    window.addEventListener('touchend', this.onDragEnd);
+    window.addEventListener('mouseup', this.onDragEnd);
   }
 
   componentWillUnmount() {
-    window.removeEventListener("touchmove", this.onDragMove);
-    window.removeEventListener("mousemove", this.onDragMove);
-    window.removeEventListener("touchend", this.onDragEnd);
-    window.removeEventListener("mouseup", this.onDragEnd);
+    window.removeEventListener('touchmove', this.onDragMove);
+    window.removeEventListener('mousemove', this.onDragMove);
+    window.removeEventListener('touchend', this.onDragEnd);
+    window.removeEventListener('mouseup', this.onDragEnd);
   }
 
-  onDragStart = withX(start => {
+  onDragStart = withX((start) => {
     if (this.state.swiped) return;
 
-    this.setState({start, pristine: false, moving: true});
+    this.setState({ start, pristine: false, moving: true });
   });
 
-  onDragMove = withX(end => {
-    const {start, swiped, moving} = this.state;
+  onDragMove = withX((end) => {
+    const { start, swiped, moving } = this.state;
 
     if (swiped || !moving) return;
 
-    this.setState({offset: getOffset(start, end)});
+    this.setState({ offset: getOffset(start, end) });
   });
 
   onDragEnd = () => {
-    const {offset, swiped, moving} = this.state;
-    const {limit} = this.props;
+    const { offset, swiped, moving } = this.state;
+    const { limit } = this.props;
 
     if (swiped || !moving) return;
 
@@ -80,24 +80,24 @@ export default class Swipeable extends PureComponent {
     }
   };
 
-  onCancelSwipe = () => this.setState({start: 0, offset: 0, moving: false});
+  onCancelSwipe = () => this.setState({ start: 0, offset: 0, moving: false });
 
-  onBeforeSwipe = direction => {
-    const {onBeforeSwipe} = this.props;
+  onBeforeSwipe = (direction) => {
+    const { onBeforeSwipe } = this.props;
 
     if (onBeforeSwipe) {
       onBeforeSwipe(
-        _direction => this.onSwipe(_direction || direction),
+        (_direction) => this.onSwipe(_direction || direction),
         this.onCancelSwipe,
-        direction
+        direction,
       );
     } else {
       this.onSwipe(direction);
     }
   };
 
-  onSwipe = direction => {
-    const {limit, onSwipe} = this.props;
+  onSwipe = (direction) => {
+    const { limit, onSwipe } = this.props;
 
     if (onSwipe) {
       onSwipe(direction);
@@ -111,7 +111,7 @@ export default class Swipeable extends PureComponent {
   };
 
   onAfterSwipe = () => {
-    const {onAfterSwipe} = this.props;
+    const { onAfterSwipe } = this.props;
 
     this.setState(INITIAL_STATE);
 
@@ -120,7 +120,7 @@ export default class Swipeable extends PureComponent {
     }
   };
 
-  forceSwipe = direction => {
+  forceSwipe = (direction) => {
     if (this.state.swiped) return;
 
     this.setState({
@@ -132,7 +132,9 @@ export default class Swipeable extends PureComponent {
   };
 
   render() {
-    const {offset, swiped, pristine, forced} = this.state;
+    const {
+      offset, swiped, pristine, forced,
+    } = this.state;
 
     const {
       children,
@@ -144,9 +146,9 @@ export default class Swipeable extends PureComponent {
     } = this.props;
 
     return (
-      <Fragment>
+      <>
         <Spring
-          from={{offset: 0, opacity: 1}}
+          from={{ offset: 0, opacity: 1 }}
           to={{
             offset,
             opacity: getOpacity(offset, limit, min),
@@ -155,7 +157,7 @@ export default class Swipeable extends PureComponent {
           immediate={pristine || (!forced && Math.abs(offset) >= limit)}
           config={SWIPE_CONFIG}
         >
-          {({offset, opacity}) => (
+          {({ offset, opacity }) => (
             <div
               style={{
                 opacity,
@@ -170,12 +172,12 @@ export default class Swipeable extends PureComponent {
             </div>
           )}
         </Spring>
-        {buttons &&
-          buttons({
-            right: () => this.forceSwipe("right"),
-            left: () => this.forceSwipe("left"),
+        {buttons
+          && buttons({
+            right: () => this.forceSwipe('right'),
+            left: () => this.forceSwipe('left'),
           })}
-      </Fragment>
+      </>
     );
   }
 }
