@@ -1,5 +1,7 @@
-import React, { PureComponent, Fragment } from 'react';
+import * as React from 'react';
 import { Spring } from 'react-spring';
+
+import directionEnum from '../constants/direction';
 import {
   getDirection,
   getOpacity,
@@ -18,13 +20,6 @@ const SWIPE_CONFIG = {
   mass: 0.1,
 };
 
-const DEFAULT_PROPS = {
-  wrapperHeight: '100%',
-  wrapperWidth: '100%',
-  limit: 120,
-  min: 40,
-};
-
 const INITIAL_STATE = {
   start: 0,
   offset: 0,
@@ -34,150 +29,194 @@ const INITIAL_STATE = {
   pristine: true,
 };
 
-export default class Swipeable extends PureComponent {
-  static defaultProps = DEFAULT_PROPS;
+export interface ButtonsPayload {
+  right: () => void,
+  left: () => void,
+}
 
-  state = INITIAL_STATE;
+export interface SwipeableProps {
+  onBeforeSwipe: (
+    forceSwipe: (direction) => void,
+    cancelSwipe: () => void,
+    direction: directionEnum,
+  ) => void,
+  onSwipe: (
+    direction: directionEnum,
+  ) => void,
+  onAfterSwipe: () => void,
+  buttons: (payload: ButtonsPayload) => React.Component,
+  children: React.ReactChild,
+  wrapperHeight: string,
+  wrapperWidth: string,
+  limit: number,
+  min: number,
+}
 
-  componentDidMount() {
-    window.addEventListener('touchmove', this.onDragMove);
-    window.addEventListener('mousemove', this.onDragMove);
-    window.addEventListener('touchend', this.onDragEnd);
-    window.addEventListener('mouseup', this.onDragEnd);
-  }
+export interface SwipeableState {
+  pristine: boolean,
+  moving: boolean,
+  forced: boolean,
+  swiped: boolean,
+  offset: number,
+  start: number,
+}
 
-  componentWillUnmount() {
-    window.removeEventListener('touchmove', this.onDragMove);
-    window.removeEventListener('mousemove', this.onDragMove);
-    window.removeEventListener('touchend', this.onDragEnd);
-    window.removeEventListener('mouseup', this.onDragEnd);
-  }
+const Swipeable = ({
+  wrapperHeight = '100%',
+  wrapperWidth = '100%',
+  onBeforeSwipe,
+  onAfterSwipe,
+  limit = 120,
+  min = 40,
+  children,
+  onSwipe,
+  buttons,
+}: SwipeableProps) => {
+  const [state, setState] = React.useState<SwipeableState>(INITIAL_STATE);
 
-  onDragStart = withX((start) => {
-    if (this.state.swiped) return;
+  const handleOnCancelSwipe = () => setState((prev) => ({
+    ...prev,
+    start: 0,
+    offset: 0,
+    moving: false,
+  }));
 
-    this.setState({ start, pristine: false, moving: true });
+  const handleOnDragStart = withX((start: number) => {
+    if (state.swiped) {
+      return;
+    }
+
+    setState((prev) => ({
+      ...prev,
+      pristine: false,
+      moving: true,
+      start,
+    }));
   });
 
-  onDragMove = withX((end) => {
-    const { start, swiped, moving } = this.state;
+  const handleOnDragMove = withX((end: number) => {
+    if (state.swiped || !state.moving) {
+      return;
+    }
 
-    if (swiped || !moving) return;
-
-    this.setState({ offset: getOffset(start, end) });
+    setState((prev) => ({
+      ...prev,
+      offset: getOffset(state.start, end),
+    }));
   });
 
-  onDragEnd = () => {
-    const { offset, swiped, moving } = this.state;
-    const { limit } = this.props;
-
-    if (swiped || !moving) return;
-
-    if (Math.abs(offset) >= limit) {
-      this.onBeforeSwipe(getDirection(offset));
-    } else {
-      this.onCancelSwipe();
-    }
-  };
-
-  onCancelSwipe = () => this.setState({ start: 0, offset: 0, moving: false });
-
-  onBeforeSwipe = (direction) => {
-    const { onBeforeSwipe } = this.props;
-
-    if (onBeforeSwipe) {
-      onBeforeSwipe(
-        (_direction) => this.onSwipe(_direction || direction),
-        this.onCancelSwipe,
-        direction,
-      );
-    } else {
-      this.onSwipe(direction);
-    }
-  };
-
-  onSwipe = (direction) => {
-    const { limit, onSwipe } = this.props;
-
+  const handleOnSwipe = (direction: directionEnum) => {
     if (onSwipe) {
       onSwipe(direction);
     }
 
-    this.setState({
-      swiped: true,
-      moving: false,
+    setState((prev) => ({
+      ...prev,
       offset: getLimitOffset(limit, direction),
-    });
+      moving: false,
+      swiped: true,
+    }));
   };
 
-  onAfterSwipe = () => {
-    const { onAfterSwipe } = this.props;
+  const handleOnBeforeSwipe = (direction: directionEnum) => {
+    if (!onBeforeSwipe) {
+      handleOnSwipe(direction);
+      return;
+    }
 
-    this.setState(INITIAL_STATE);
+    onBeforeSwipe(
+      (_direction: directionEnum) => handleOnSwipe(_direction || direction),
+      handleOnCancelSwipe,
+      direction,
+    );
+  };
+
+  const handleOnAfterSwipe = () => {
+    setState(INITIAL_STATE);
 
     if (onAfterSwipe) {
       onAfterSwipe();
     }
   };
 
-  forceSwipe = (direction) => {
-    if (this.state.swiped) return;
+  const handleOnDragEnd = () => {
+    if (state.swiped || !state.moving) {
+      return;
+    }
 
-    this.setState({
-      pristine: false,
-      forced: true,
-    });
+    if (Math.abs(state.offset) >= limit) {
+      handleOnBeforeSwipe(getDirection(state.offset));
+      return;
+    }
 
-    this.onBeforeSwipe(direction);
+    handleOnCancelSwipe();
   };
 
-  render() {
-    const {
-      offset, swiped, pristine, forced,
-    } = this.state;
+  const handleForceSwipe = (direction: directionEnum) => {
+    if (state.swiped) {
+      return;
+    }
 
-    const {
-      children,
-      limit,
-      buttons,
-      min,
-      wrapperHeight,
-      wrapperWidth,
-    } = this.props;
+    setState((prev) => ({
+      ...prev,
+      pristine: false,
+      forced: true,
+    }));
 
-    return (
-      <>
-        <Spring
-          from={{ offset: 0, opacity: 1 }}
-          to={{
-            offset,
-            opacity: getOpacity(offset, limit, min),
-          }}
-          onRest={() => swiped && this.onAfterSwipe()}
-          immediate={pristine || (!forced && Math.abs(offset) >= limit)}
-          config={SWIPE_CONFIG}
-        >
-          {({ offset, opacity }) => (
-            <div
-              style={{
-                opacity,
-                transform: `translateX(${offset}px) rotate(${offset / 10}deg)`,
-                height: wrapperHeight,
-                width: wrapperWidth,
-              }}
-              onMouseDown={this.onDragStart}
-              onTouchStart={this.onDragStart}
-            >
-              {children}
-            </div>
-          )}
-        </Spring>
-        {buttons
-          && buttons({
-            right: () => this.forceSwipe('right'),
-            left: () => this.forceSwipe('left'),
-          })}
-      </>
-    );
-  }
-}
+    handleOnBeforeSwipe(direction);
+  };
+
+  React.useEffect(() => {
+    window.addEventListener('touchmove', handleOnDragMove);
+    window.addEventListener('mousemove', handleOnDragMove);
+    window.addEventListener('touchend', handleOnDragEnd);
+    window.addEventListener('mouseup', handleOnDragEnd);
+
+    return () => {
+      window.removeEventListener('touchmove', handleOnDragMove);
+      window.removeEventListener('mousemove', handleOnDragMove);
+      window.removeEventListener('touchend', handleOnDragEnd);
+      window.removeEventListener('mouseup', handleOnDragEnd);
+    };
+  }, []);
+
+  return (
+    <>
+      <Spring
+        from={{ offset: 0, opacity: 1 }}
+        to={{
+          opacity: getOpacity(state.offset, limit, min),
+          offset: state.offset,
+        }}
+        immediate={state.pristine || (!state.forced && Math.abs(state.offset) >= limit)}
+        onRest={() => state.swiped && handleOnAfterSwipe()}
+        config={SWIPE_CONFIG}
+      >
+        {({ offset, opacity }) => (
+          <div
+            style={{
+              opacity,
+              transform: `translateX(${offset}px) rotate(${offset / 10}deg)`,
+              height: wrapperHeight,
+              width: wrapperWidth,
+            }}
+            onTouchStart={handleOnDragStart}
+            onMouseDown={handleOnDragStart}
+          >
+            {children}
+          </div>
+        )}
+      </Spring>
+      {
+      buttons && (
+        buttons({
+          right: () => handleForceSwipe(directionEnum.RIGHT),
+          left: () => handleForceSwipe(directionEnum.LEFT),
+        })
+      )
+      }
+    </>
+  );
+};
+
+export default Swipeable;
