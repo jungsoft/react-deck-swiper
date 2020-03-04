@@ -63,9 +63,9 @@
     "rollup-plugin-uglify": "^4.0.0"
   },
   "dependencies": {
-    "react": "^16.4.0",
-    "react-dom": "^16.4.0",
-    "react-spring": "^5.3.8"
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-spring": "^8.0.27"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>/test-setup.js",
