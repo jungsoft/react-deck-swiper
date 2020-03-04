@@ -37,8 +37,6 @@ Name | Type | Required | Default value | Description
 
 ## Usage
 
-Simply initialize appzi with your token:
-
 ```
 import * as React from 'react';
 
