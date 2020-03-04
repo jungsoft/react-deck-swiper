@@ -2,7 +2,7 @@
   "name": "react-deck-swiper",
   "author": "Pedro Bini",
   "repository": "pedro-lb/react-deck-swiper",
-  "version": "1.0.01",
+  "version": "1.0.02",
   "license": "ISC",
   "description": "React.js tinder-like swipeable component",
   "main": "dist/index.js",
@@ -67,11 +67,15 @@
     "rollup-plugin-peer-deps-external": "^2.2.0",
     "rollup-plugin-typescript2": "^0.17.0",
     "rollup-plugin-url": "^2.1.0",
-    "typescript": "^3.7.5"
+    "typescript": "^3.7.5",
+    "react": "16.8.6",
+    "react-dom": "16.8.6"
+  },
+  "peerDependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
   "dependencies": {
-    "react": "^16.13.0",
-    "react-dom": "^16.13.0",
     "react-spring": "^8.0.27"
   }
 }
