@@ -5,7 +5,8 @@
   "version": "1.0.1",
   "license": "ISC",
   "description": "React tinder-like swipeable component",
-  "main": "dist/react-swipy.min.js",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
   "publishConfig": {
     "access": "public"
   },
