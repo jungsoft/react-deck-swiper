@@ -36,10 +36,7 @@ const Swipeable = ({
   children,
   state,
 }: SwipeableProps) => {
-  const {
-    opacity,
-    offset,
-  } = useSpring({
+  const springProps = useSpring({
     immediate: state.pristine || (!state.forced && Math.abs(state.offset) >= limit),
     onRest: () => state.swiped && handleOnAfterSwipe(),
     config: SWIPE_CONFIG,
@@ -52,6 +49,15 @@ const Swipeable = ({
       offset: state.offset,
     },
   });
+
+  // HACK: react-spring doesn't support Typescript in @8.0.0,
+  // so we can't access properties from useSpring.
+
+  // eslint-disable-next-line
+  const opacity = springProps['opacity'];
+
+  // eslint-disable-next-line
+  const offset = springProps['offset'];
 
   const animatedStyle = {
     transform: `translateX(${offset}px) rotate(${parseFloat(String(offset)) / 10}deg)`,
