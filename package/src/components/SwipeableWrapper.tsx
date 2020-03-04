@@ -40,8 +40,8 @@ export interface SwipeableWrapperProps {
   onAfterSwipe?: () => void,
   wrapperHeight?: string,
   wrapperWidth?: string,
-  limit?: number,
-  min?: number,
+  swipeThreshold?: number,
+  fadeThreshold?: number,
 }
 
 export interface SwipeableState {
@@ -57,9 +57,9 @@ const SwipeableWrapper = (props: SwipeableWrapperProps) => {
   const [state, setState] = React.useState<SwipeableState>(INITIAL_STATE);
 
   const {
+    swipeThreshold = 120,
     onBeforeSwipe,
     onAfterSwipe,
-    limit = 120,
     onSwipe,
   } = props;
 
@@ -101,7 +101,7 @@ const SwipeableWrapper = (props: SwipeableWrapperProps) => {
 
     setState((prev) => ({
       ...prev,
-      offset: getLimitOffset(limit, direction),
+      offset: getLimitOffset(swipeThreshold, direction),
       moving: false,
       swiped: true,
     }));
@@ -133,7 +133,7 @@ const SwipeableWrapper = (props: SwipeableWrapperProps) => {
       return;
     }
 
-    if (Math.abs(state.offset) >= limit) {
+    if (Math.abs(state.offset) >= swipeThreshold) {
       handleOnBeforeSwipe(getDirection(state.offset));
       return;
     }

@@ -27,17 +27,17 @@ export interface SwipeableProps extends SwipeableWrapperProps {
 const Swipeable = ({
   wrapperHeight = '100%',
   wrapperWidth = '100%',
+  swipeThreshold = 120,
+  fadeThreshold = 40,
   handleOnAfterSwipe,
   handleOnDragStart,
   handleForceSwipe,
   renderButtons,
-  limit = 120,
-  min = 40,
   children,
   state,
 }: SwipeableProps) => {
   const springProps = useSpring({
-    immediate: state.pristine || (!state.forced && Math.abs(state.offset) >= limit),
+    immediate: state.pristine || (!state.forced && Math.abs(state.offset) >= swipeThreshold),
     onRest: () => state.swiped && handleOnAfterSwipe(),
     config: SWIPE_CONFIG,
     from: {
@@ -45,7 +45,7 @@ const Swipeable = ({
       offset: 0,
     },
     to: {
-      opacity: getOpacity(state.offset, limit, min),
+      opacity: getOpacity(state.offset, swipeThreshold, fadeThreshold),
       offset: state.offset,
     },
   });
