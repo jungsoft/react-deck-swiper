@@ -1,10 +1,10 @@
 {
-  "name": "@pedrobini/react-swipy",
+  "name": "react-deck-swiper",
   "author": "Pedro Bini",
-  "repository": "pedro-lb/react-swipy",
+  "repository": "pedro-lb/react-deck-swiper",
   "version": "1.0.1",
   "license": "ISC",
-  "description": "React tinder-like swipeable component",
+  "description": "React.js tinder-like swipeable component",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "publishConfig": {
