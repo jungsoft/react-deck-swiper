@@ -1,125 +1,78 @@
-# React Swipy (`react-swipy`)
-[![Build Status](https://travis-ci.org/goncy/react-swipy.svg?branch=master)](https://travis-ci.org/goncy/react-swipy)
-[![Coverage Status](https://coveralls.io/repos/github/goncy/react-swipy/badge.svg?branch=master)](https://coveralls.io/github/goncy/react-swipy?branch=master)
+# React Deck Swiper
 
-A simple Tinder-like swipeable React component
+[![NPM](https://img.shields.io/npm/v/react-deck-swiper.svg)](https://www.npmjs.com/package/react-deck-swiper) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-## Installation
-```sh
-# NPM
-npm install --save react-swipy
-# Yarn
-yarn add react-swipy
+This is a simple React module that introduces a tinder-like swipeable component.
+
+## Install
+
+You can use `yarn` or `npm`.
+
+
+### Yarn
+
+```bash
+yarn add react-deck-swiper
 ```
 
-## Why
-I didn't like the lack of control on mose deck-based swipeable components out there
+### npm
 
-## How
-[![See in CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/5x53pnrn3x)
-```jsx
-import React, {Component} from "react";
-import Swipeable from "react-swipy"
-
-import Card from "./components/Card";
-import Button from "./components/Button";
-
-const wrapperStyles = {position: "relative", width: "250px", height: "250px"};
-const actionsStyles = {
-  display: "flex",
-  justifyContent: "space-between",
-  marginTop: 12,
-};
-
-class App extends Component {
-  state = {
-    cards: ["First", "Second", "Third"],
-  };
-
-  remove = () =>
-    this.setState(({cards}) => ({
-      cards: cards.slice(1, cards.length),
-    }));
-
-  render() {
-    const {cards} = this.state;
-
-    return (
-      <div>
-        <div style={wrapperStyles}>
-          {cards.length > 0 ? (
-            <div style={wrapperStyles}>
-              <Swipeable
-                buttons={({left, right}) => (
-                  <div style={actionsStyles}>
-                    <Button onClick={left}>Reject</Button>
-                    <Button onClick={right}>Accept</Button>
-                  </div>
-                )}
-                onAfterSwipe={this.remove}
-              >
-                <Card>{cards[0]}</Card>
-              </Swipeable>
-              {cards.length > 1 && <Card zIndex={-1}>{cards[1]}</Card>}
-            </div>
-          ) : (
-            <Card zIndex={-2}>No more cards</Card>
-          )}
-        </div>
-      </div>
-    );
-  }
-}
-
-export default App;
+```bash
+npm install --save react-deck-swiper
 ```
 
 ## Props
 
-#### limit
-`Number`
+Name | Type | Required | Default value | Description
+:--- | :--- | :--- | :--- | :---
+`children` | `React.ReactChild` | _required_ | - | component that will be swipeable
+`onBeforeSwipe` | `(forceSwipe, cancelSwipe, direction) => void` | _optional_ | `undefined` | callback executed on swipe start
+`onSwipe` | `(direction) => void` | _optional_ | `undefined` | callback executed on swipe end
+`onAfterSwipe` | `() => void` | _optional_ | `undefined` | callback executed right after onSwipe end
+`wrapperHeight` | `string` | _optional_ | `100%` | `height` prop for swipeable wrapper
+`wrapperWidth` | `string` | _optional_ | `100%` | `width` prop for swipeable wrapper
+`swipeThreshold` | `number` | _optional_ | `120` | offset in px swiped to consider as swipe
+`fadeThreshold` | `number` | _optional_ | `40` | offset when opacity fade should start
+`renderButtons` | `({right, left}) => React.Component` | _optional_ | `undefined` | function to render buttons to force swipes
 
-Offset in px swiped to consider as swipe
+## Usage
 
-#### min
-`Number`
+Simply initialize appzi with your token:
 
-Offset when opacity fade should start
+```
+import * as React from 'react';
 
-#### onBeforeSwipe
-`Function`
+import { Swipeable, direction } from 'react-deck-swiper';
 
-Callback executed before swiping, it receives 3 parameters:
-* A function that, when called, executes the swipe ('left' or 'right' can be passed to force direction)
-* A function that will cancel the swipe
-* The direction of the swipe
+const Component = () => {
+  const handleOnSwipe = (swipeDirection) => {
+    if (swipeDirection === direction.RIGHT) {
+      // handle right swipe
+      return;
+    }
 
-#### onSwipe
-`Function`
+    if (swipeDirection === direction.LEFT) {
+      // handle left swipe
+      return;
+    }
+  }
 
-Callback executed right after swipe, it receives 'left' or 'right' as first parameter
+  return (
+    <Swipeable onSwipe={handleOnSwipe}>
+      <div className="card">
+        Your card content here
+      </div>
+    </Swipeable>
+  );
+};
 
-#### onAfterSwipe
-`Function`
+export default Component;
+```
 
-Callback executed when animation ends
+## Contributing
 
-#### children
-`Node`
+Pull requests are welcome! If you have any feedback, issue or suggestion, feel free to open [a new issue](https://github.com/pedro-lb/react-deck-swiper/issues/new) so we can talk about it 💬.
 
-Content of the card
+## License
 
-#### wrapperHeight
-`String`
-
-Height of the wrapper
-
-#### wrapperWidth
-`String`
-
-Width of the wrapper
-
-#### buttons
-`Function`
-
-Function that returns a `left` and `right` function that will force a swipe
+MIT © [pedro-lb](https://github.com/pedro-lb)
