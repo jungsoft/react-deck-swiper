@@ -30,7 +30,7 @@ export interface SwipeableWrapperProps {
   children: React.ReactChild,
   renderButtons?: (payload: RenderButtonsPayload) => React.Component,
   onBeforeSwipe?: (
-    forceSwipe: (direction) => void,
+    forceSwipe: (direction: directionEnum) => void,
     cancelSwipe: () => void,
     direction: directionEnum,
   ) => void,
