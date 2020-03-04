@@ -29,12 +29,13 @@ const INITIAL_STATE = {
   pristine: true,
 };
 
-export interface ButtonsPayload {
+export interface RenderButtonsPayload {
   right: () => void,
   left: () => void,
 }
 
 export interface SwipeableProps {
+  renderButtons?: (payload: RenderButtonsPayload) => React.Component,
   onBeforeSwipe: (
     forceSwipe: (direction) => void,
     cancelSwipe: () => void,
@@ -44,7 +45,6 @@ export interface SwipeableProps {
     direction: directionEnum,
   ) => void,
   onAfterSwipe: () => void,
-  buttons: (payload: ButtonsPayload) => React.Component,
   children: React.ReactChild,
   wrapperHeight: string,
   wrapperWidth: string,
@@ -64,13 +64,13 @@ export interface SwipeableState {
 const Swipeable = ({
   wrapperHeight = '100%',
   wrapperWidth = '100%',
+  renderButtons,
   onBeforeSwipe,
   onAfterSwipe,
   limit = 120,
   min = 40,
   children,
   onSwipe,
-  buttons,
 }: SwipeableProps) => {
   const [state, setState] = React.useState<SwipeableState>(INITIAL_STATE);
 
@@ -208,8 +208,8 @@ const Swipeable = ({
         )}
       </Spring>
       {
-      buttons && (
-        buttons({
+      renderButtons && (
+        renderButtons({
           right: () => handleForceSwipe(directionEnum.RIGHT),
           left: () => handleForceSwipe(directionEnum.LEFT),
         })
