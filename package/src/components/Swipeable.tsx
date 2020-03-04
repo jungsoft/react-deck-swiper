@@ -60,7 +60,7 @@ const Swipeable = ({
   const offset = springProps['offset'];
 
   const animatedStyle = {
-    transform: `translateX(${offset}px) rotate(${parseFloat(String(offset)) / 10}deg)`,
+    transform: `translateX(${offset}px) rotate(${offset / 10}deg)`,
     height: wrapperHeight,
     width: wrapperWidth,
     opacity,
