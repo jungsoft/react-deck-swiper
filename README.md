@@ -4,6 +4,8 @@
 
 This is a simple React module that introduces a tinder-like swipeable component.
 
+![Preview](https://media.giphy.com/media/US0kvefmSueoiIpZwU/giphy.gif)
+
 ## Preview
 
 Online example [here](https://pedro-lb.github.io/react-deck-swiper/).
