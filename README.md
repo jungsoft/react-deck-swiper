@@ -80,3 +80,7 @@ Pull requests are welcome! If you have any feedback, issue or suggestion, feel f
 ## License
 
 MIT © [pedro-lb](https://github.com/pedro-lb)
+
+## Special Thanks
+
+Thanks to [goncy](https://github.com/goncy/) for the first version of this lib.
