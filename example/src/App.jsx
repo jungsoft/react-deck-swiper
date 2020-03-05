@@ -3,6 +3,8 @@ import { Swipeable, direction } from 'react-deck-swiper';
 import classNames from 'classnames';
 
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import GitHubIcon from '@material-ui/icons/GitHub';
 import Grid from '@material-ui/core/Grid';
 
 import CardButtons from './components/CardButtons';
@@ -100,6 +102,35 @@ const App = () => {
               </Typography>
             )
         }
+      </Grid>
+
+      <Grid item xs={12} className={classNames(classes.marginTop2, classes.centerContent)}>
+        <Typography variant="body1">
+          {'Made with '}
+          <span role="img" aria-label="github">❤️</span>
+          {'by '}
+          <a
+            href="https://github.com/pedro-lb"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Pedro Bini
+          </a>
+        </Typography>
+
+        <a
+          href="https://github.com/pedro-lb/react-deck-swiper"
+          rel="noopener noreferrer"
+          className={classes.marginTop1}
+          target="_blank"
+        >
+          <IconButton
+            aria-label="github repo"
+            className={classes.margin}
+          >
+            <GitHubIcon color="primary" fontSize="large" />
+          </IconButton>
+        </a>
       </Grid>
     </Grid>
   );
