@@ -16,6 +16,7 @@ const useStyles = makeStyles({
 export default function Card({
   item: {
     title,
+    text,
     url,
   },
 }) {
@@ -25,13 +26,17 @@ export default function Card({
     <MaterialCard className={classes.root}>
       <CardActionArea>
         <CardMedia
+          style={{ objectFit: 'cover', objectPosition: 'top' }}
           component="img"
-          height="140"
+          height="250"
           image={url}
         />
         <CardContent>
           <Typography gutterBottom variant="h6" component="h3">
             {title}
+          </Typography>
+          <Typography gutterBottom variant="body1" component="h3">
+            {text}
           </Typography>
         </CardContent>
       </CardActionArea>
