@@ -39,7 +39,7 @@ const App = () => {
       setLastSwipeDirection('your left');
     }
 
-    setCards(cards.slice(1));
+    setCards((prev) => prev.slice(1));
   };
 
   const renderButtons = ({
