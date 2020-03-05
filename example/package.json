@@ -1,0 +1,34 @@
+{
+  "name": "react-deck-swiper-example",
+  "homepage": "https://pedro-lb.github.io/react-deck-swiper",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.9.3",
+    "@material-ui/icons": "^4.9.1",
+    "classnames": "^2.2.6",
+    "react": "^16.8.6",
+    "react-deck-swiper": "^1.0.2",
+    "react-dom": "^16.8.6",
+    "react-scripts": "^1.1.4"
+  },
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint ./src --ext .js,.jsx",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.18.3",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "gh-pages": "^2.2.0"
+  }
+}
