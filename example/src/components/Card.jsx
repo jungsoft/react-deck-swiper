@@ -11,6 +11,11 @@ const useStyles = makeStyles({
   root: {
     maxWidth: 345,
   },
+  cardMedia: {
+    objectFit: 'cover',
+    objectPosition: 'top',
+    userSelect: 'none',
+  },
 });
 
 export default function Card({
@@ -26,7 +31,7 @@ export default function Card({
     <MaterialCard className={classes.root}>
       <CardActionArea>
         <CardMedia
-          style={{ objectFit: 'cover', objectPosition: 'top' }}
+          className={classes.cardMedia}
           component="img"
           height="250"
           image={url}
