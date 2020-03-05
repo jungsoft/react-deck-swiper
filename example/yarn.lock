@@ -8601,10 +8601,10 @@ react-app-polyfill@^1.0.6:
     regenerator-runtime "^0.13.3"
     whatwg-fetch "^3.0.0"
 
-react-deck-swiper@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/react-deck-swiper/-/react-deck-swiper-1.0.5.tgz#47a0da24b03c8e700fecad3baa497d02b5574af9"
-  integrity sha512-BazWiSHUaLBKXiUMZ/NkBUB17DWvJpRRSOdn7Tirn6lEbHhliHhgK7vCiQIihWnWjsHUjY86zdtCszTJtyFqmg==
+react-deck-swiper@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/react-deck-swiper/-/react-deck-swiper-1.0.6.tgz#d14ea4a401123ea17f1d4692d9c47b17b7111943"
+  integrity sha512-LvCCxuA4/zZsM5R3//3KOZ+YLiy7N0YSI5oN8jn1TXMjKWnYrrTz8h2cPxme/IRyoKf9udcePZjbr7RB06n0uw==
   dependencies:
     react-spring "^8.0.27"
 
