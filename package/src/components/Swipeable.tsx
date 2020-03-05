@@ -22,6 +22,7 @@ const Swipeable = ({
   handleOnAfterSwipe,
   handleOnDragStart,
   handleForceSwipe,
+  onOpacityChange,
   renderButtons,
   children,
   state,
@@ -64,6 +65,14 @@ const Swipeable = ({
     width: wrapperWidth,
     opacity,
   };
+
+  React.useEffect(() => {
+    if (onOpacityChange) {
+      onOpacityChange(opacity);
+    }
+  }, [
+    opacity,
+  ]);
 
   return (
     <>

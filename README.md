@@ -67,6 +67,7 @@ Name | Type | Required | Default value | Description
 `onBeforeSwipe` | `(forceSwipe, cancelSwipe, direction) => void` | _optional_ | `undefined` | callback executed on swipe start
 `onSwipe` | `(direction) => void` | _optional_ | `undefined` | callback executed on swipe end
 `onAfterSwipe` | `() => void` | _optional_ | `undefined` | callback executed right after onSwipe end
+`onOpacityChange` | `(opacity) => void` | _optional_ | `undefined` | callback executed when the card opacity changes on swipe
 `wrapperHeight` | `string` | _optional_ | `100%` | `height` prop for swipeable wrapper
 `wrapperWidth` | `string` | _optional_ | `100%` | `width` prop for swipeable wrapper
 `swipeThreshold` | `number` | _optional_ | `120` | offset in px swiped to consider as swipe

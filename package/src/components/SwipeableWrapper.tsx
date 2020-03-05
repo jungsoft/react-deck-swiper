@@ -37,6 +37,7 @@ export interface SwipeableWrapperProps {
   onSwipe?: (
     direction: directionEnum,
   ) => void,
+  onOpacityChange?: (opacity: number) => void,
   onAfterSwipe?: () => void,
   wrapperHeight?: string,
   wrapperWidth?: string,
