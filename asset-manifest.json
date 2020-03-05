@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.js": "/react-deck-swiper/static/js/main.c2b93a33.chunk.js",
+    "main.js.map": "/react-deck-swiper/static/js/main.c2b93a33.chunk.js.map",
+    "runtime-main.js": "/react-deck-swiper/static/js/runtime-main.202a2bcf.js",
+    "runtime-main.js.map": "/react-deck-swiper/static/js/runtime-main.202a2bcf.js.map",
+    "static/js/2.2ce1cf8a.chunk.js": "/react-deck-swiper/static/js/2.2ce1cf8a.chunk.js",
+    "static/js/2.2ce1cf8a.chunk.js.map": "/react-deck-swiper/static/js/2.2ce1cf8a.chunk.js.map",
+    "index.html": "/react-deck-swiper/index.html",
+    "precache-manifest.c5e79a2d2fbda552ae006a23c7fe2569.js": "/react-deck-swiper/precache-manifest.c5e79a2d2fbda552ae006a23c7fe2569.js",
+    "service-worker.js": "/react-deck-swiper/service-worker.js",
+    "static/js/2.2ce1cf8a.chunk.js.LICENSE.txt": "/react-deck-swiper/static/js/2.2ce1cf8a.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.202a2bcf.js",
+    "static/js/2.2ce1cf8a.chunk.js",
+    "static/js/main.c2b93a33.chunk.js"
+  ]
+}
