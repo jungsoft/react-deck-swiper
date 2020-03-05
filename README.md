@@ -4,6 +4,10 @@
 
 This is a simple React module that introduces a tinder-like swipeable component.
 
+## Preview
+
+Online example [here](https://pedro-lb.github.io/react-deck-swiper/).
+
 ## Install
 
 You can use `yarn` or `npm`.
