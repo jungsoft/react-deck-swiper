@@ -9,7 +9,7 @@
     "@material-ui/icons": "^4.9.1",
     "classnames": "^2.2.6",
     "react": "^16.8.6",
-    "react-deck-swiper": "^1.0.3",
+    "react-deck-swiper": "^1.0.5",
     "react-dom": "^16.8.6",
     "react-scripts": "^3.4.0"
   },
