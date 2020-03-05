@@ -56,6 +56,10 @@ export interface SwipeableState {
 const SwipeableWrapper = (props: SwipeableWrapperProps) => {
   const [state, setState] = React.useState<SwipeableState>(INITIAL_STATE);
 
+  const stateRef = React.useRef(state);
+
+  stateRef.current = state;
+
   const {
     swipeThreshold = 120,
     onBeforeSwipe,
@@ -63,48 +67,27 @@ const SwipeableWrapper = (props: SwipeableWrapperProps) => {
     onSwipe,
   } = props;
 
-  const handleOnCancelSwipe = () => setState((prev) => ({
-    ...prev,
-    start: 0,
-    offset: 0,
-    moving: false,
-  }));
+  const handleResetState = () => {
+    setState(INITIAL_STATE);
 
-  const handleOnDragStart = withX((start: number) => {
-    if (state.swiped) {
-      return;
-    }
-
-    setState((prev) => ({
-      ...prev,
-      pristine: false,
-      moving: true,
-      start,
-    }));
-  });
-
-  const handleOnDragMove = withX((end: number) => {
-    if (state.swiped || !state.moving) {
-      return;
-    }
-
-    setState((prev) => ({
-      ...prev,
-      offset: getOffset(state.start, end),
-    }));
-  });
+    setState({
+      ...stateRef.current,
+      offset: 0,
+      start: 0,
+    });
+  };
 
   const handleOnSwipe = (direction: directionEnum) => {
     if (onSwipe) {
       onSwipe(direction);
     }
 
-    setState((prev) => ({
-      ...prev,
+    setState({
+      ...stateRef.current,
       offset: getLimitOffset(swipeThreshold, direction),
       moving: false,
       swiped: true,
-    }));
+    });
   };
 
   const handleOnBeforeSwipe = (direction: directionEnum) => {
@@ -115,42 +98,66 @@ const SwipeableWrapper = (props: SwipeableWrapperProps) => {
 
     onBeforeSwipe(
       (_direction: directionEnum) => handleOnSwipe(_direction || direction),
-      handleOnCancelSwipe,
+      handleResetState,
       direction,
     );
   };
 
   const handleOnAfterSwipe = () => {
-    setState(INITIAL_STATE);
-
     if (onAfterSwipe) {
       onAfterSwipe();
     }
+
+    handleResetState();
   };
+
+  const handleOnDragStart = withX((start: number) => {
+    if (stateRef.current.swiped) {
+      return;
+    }
+
+    setState({
+      ...stateRef.current,
+      pristine: false,
+      moving: true,
+      start,
+    });
+  });
 
   const handleOnDragEnd = () => {
-    if (state.swiped || !state.moving) {
+    if (stateRef.current.swiped || !stateRef.current.moving) {
       return;
     }
 
-    if (Math.abs(state.offset) >= swipeThreshold) {
-      handleOnBeforeSwipe(getDirection(state.offset));
+    if (Math.abs(stateRef.current.offset) >= swipeThreshold) {
+      handleOnBeforeSwipe(getDirection(stateRef.current.offset));
       return;
     }
 
-    handleOnCancelSwipe();
+    handleResetState();
   };
 
-  const handleForceSwipe = (direction: directionEnum) => {
-    if (state.swiped) {
+  const handleOnDragMove = withX((end: number) => {
+    if (stateRef.current.swiped || !stateRef.current.moving) {
       return;
     }
 
-    setState((prev) => ({
-      ...prev,
+    setState({
+      ...stateRef.current,
+      offset: getOffset(stateRef.current.start, end),
+    });
+  });
+
+  const handleForceSwipe = (direction: directionEnum) => {
+    if (stateRef.current.swiped) {
+      return;
+    }
+
+    setState({
+      ...stateRef.current,
       pristine: false,
       forced: true,
-    }));
+    });
 
     handleOnBeforeSwipe(direction);
   };
@@ -174,7 +181,7 @@ const SwipeableWrapper = (props: SwipeableWrapperProps) => {
       handleOnAfterSwipe={handleOnAfterSwipe}
       handleOnDragStart={handleOnDragStart}
       handleForceSwipe={handleForceSwipe}
-      state={state}
+      state={stateRef.current}
       {...props}
     />
   );
