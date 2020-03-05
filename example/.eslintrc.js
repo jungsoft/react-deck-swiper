@@ -34,11 +34,14 @@ module.exports = {
   },
   plugins: [
     'react',
+    'react-hooks',
   ],
   rules: {
     "react/jsx-filename-extension": 0,
     "react/jsx-props-no-spreading": 0,
     "import/extensions": 0,
     "react/prop-types": 0,
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
   },
 };
