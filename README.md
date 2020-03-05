@@ -27,20 +27,6 @@ yarn add react-deck-swiper
 npm install --save react-deck-swiper
 ```
 
-## Props
-
-Name | Type | Required | Default value | Description
-:--- | :--- | :--- | :--- | :---
-`children` | `React.ReactChild` | _required_ | - | component that will be swipeable
-`onBeforeSwipe` | `(forceSwipe, cancelSwipe, direction) => void` | _optional_ | `undefined` | callback executed on swipe start
-`onSwipe` | `(direction) => void` | _optional_ | `undefined` | callback executed on swipe end
-`onAfterSwipe` | `() => void` | _optional_ | `undefined` | callback executed right after onSwipe end
-`wrapperHeight` | `string` | _optional_ | `100%` | `height` prop for swipeable wrapper
-`wrapperWidth` | `string` | _optional_ | `100%` | `width` prop for swipeable wrapper
-`swipeThreshold` | `number` | _optional_ | `120` | offset in px swiped to consider as swipe
-`fadeThreshold` | `number` | _optional_ | `40` | offset when opacity fade should start
-`renderButtons` | `({right, left}) => React.Component` | _optional_ | `undefined` | function to render buttons to force swipes
-
 ## Usage
 
 ```
@@ -72,6 +58,20 @@ const Component = () => {
 
 export default Component;
 ```
+
+## Props
+
+Name | Type | Required | Default value | Description
+:--- | :--- | :--- | :--- | :---
+`children` | `React.ReactChild` | _required_ | - | component that will be swipeable
+`onBeforeSwipe` | `(forceSwipe, cancelSwipe, direction) => void` | _optional_ | `undefined` | callback executed on swipe start
+`onSwipe` | `(direction) => void` | _optional_ | `undefined` | callback executed on swipe end
+`onAfterSwipe` | `() => void` | _optional_ | `undefined` | callback executed right after onSwipe end
+`wrapperHeight` | `string` | _optional_ | `100%` | `height` prop for swipeable wrapper
+`wrapperWidth` | `string` | _optional_ | `100%` | `width` prop for swipeable wrapper
+`swipeThreshold` | `number` | _optional_ | `120` | offset in px swiped to consider as swipe
+`fadeThreshold` | `number` | _optional_ | `40` | offset when opacity fade should start
+`renderButtons` | `({right, left}) => React.Component` | _optional_ | `undefined` | function to render buttons to force swipes
 
 ## Contributing
 
