@@ -15,6 +15,7 @@ const useStyles = makeStyles({
     objectFit: 'cover',
     objectPosition: 'top',
     userSelect: 'none',
+    pointerEvents: 'none',
   },
 });
 
