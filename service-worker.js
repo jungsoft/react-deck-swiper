@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/react-deck-swiper/precache-manifest.c5e79a2d2fbda552ae006a23c7fe2569.js"
+  "/react-deck-swiper/precache-manifest.eb4af31cf17952ed2c2ef29ddf1c5d0e.js"
 );
 
 self.addEventListener('message', (event) => {
