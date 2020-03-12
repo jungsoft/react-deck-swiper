@@ -10,7 +10,6 @@ import { getOpacity } from '../utils/helpers';
 export interface SwipeableProps extends SwipeableWrapperProps {
   handleForceSwipe: (direction: directionEnum) => void,
   handleOnDragStart: (e: any) => any,
-  handleOnAfterSwipe: () => void,
   state: SwipeableState,
 }
 
@@ -19,7 +18,6 @@ const Swipeable = ({
   wrapperWidth = '100%',
   swipeThreshold = 120,
   fadeThreshold = 40,
-  handleOnAfterSwipe,
   handleOnDragStart,
   handleForceSwipe,
   onOpacityChange,
@@ -29,7 +27,6 @@ const Swipeable = ({
 }: SwipeableProps) => {
   const springProps = useSpring({
     immediate: state.pristine || (!state.forced && Math.abs(state.offset) >= swipeThreshold),
-    onRest: () => state.swiped && handleOnAfterSwipe(),
     config: {
       tension: 390,
       friction: 30,

@@ -78,6 +78,14 @@ const SwipeableWrapper = (props: SwipeableWrapperProps) => {
     });
   };
 
+  const handleOnAfterSwipe = () => {
+    if (onAfterSwipe) {
+      onAfterSwipe();
+    }
+
+    handleResetState();
+  };
+
   const handleOnSwipe = (direction: directionEnum) => {
     if (onSwipe) {
       onSwipe(direction);
@@ -89,6 +97,8 @@ const SwipeableWrapper = (props: SwipeableWrapperProps) => {
       moving: false,
       swiped: true,
     });
+
+    handleOnAfterSwipe();
   };
 
   const handleOnBeforeSwipe = (direction: directionEnum) => {
@@ -102,14 +112,6 @@ const SwipeableWrapper = (props: SwipeableWrapperProps) => {
       handleResetState,
       direction,
     );
-  };
-
-  const handleOnAfterSwipe = () => {
-    if (onAfterSwipe) {
-      onAfterSwipe();
-    }
-
-    handleResetState();
   };
 
   const handleOnDragStart = withX((start: number) => {
@@ -179,7 +181,6 @@ const SwipeableWrapper = (props: SwipeableWrapperProps) => {
 
   return (
     <Swipeable
-      handleOnAfterSwipe={handleOnAfterSwipe}
       handleOnDragStart={handleOnDragStart}
       handleForceSwipe={handleForceSwipe}
       state={stateRef.current}
