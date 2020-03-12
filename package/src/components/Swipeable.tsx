@@ -68,6 +68,7 @@ const Swipeable = ({
       onOpacityChange(opacity);
     }
   }, [
+    onOpacityChange,
     opacity,
   ]);
 

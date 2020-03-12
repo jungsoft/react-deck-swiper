@@ -68,7 +68,7 @@ const SwipeableWrapper = (props: SwipeableWrapperProps) => {
     onSwipe,
   } = props;
 
-  const handleResetState = () => {
+  const handleResetState = React.useCallback(() => {
     setState(INITIAL_STATE);
 
     setState({
@@ -76,17 +76,20 @@ const SwipeableWrapper = (props: SwipeableWrapperProps) => {
       offset: 0,
       start: 0,
     });
-  };
+  }, []);
 
-  const handleOnAfterSwipe = () => {
+  const handleOnAfterSwipe = React.useCallback(() => {
     if (onAfterSwipe) {
       onAfterSwipe();
     }
 
     handleResetState();
-  };
+  }, [
+    handleResetState,
+    onAfterSwipe,
+  ]);
 
-  const handleOnSwipe = (direction: directionEnum) => {
+  const handleOnSwipe = React.useCallback((direction: directionEnum) => {
     if (onSwipe) {
       onSwipe(direction);
     }
@@ -99,9 +102,13 @@ const SwipeableWrapper = (props: SwipeableWrapperProps) => {
     });
 
     handleOnAfterSwipe();
-  };
+  }, [
+    handleOnAfterSwipe,
+    swipeThreshold,
+    onSwipe,
+  ]);
 
-  const handleOnBeforeSwipe = (direction: directionEnum) => {
+  const handleOnBeforeSwipe = React.useCallback((direction: directionEnum) => {
     if (!onBeforeSwipe) {
       handleOnSwipe(direction);
       return;
@@ -112,9 +119,13 @@ const SwipeableWrapper = (props: SwipeableWrapperProps) => {
       handleResetState,
       direction,
     );
-  };
+  }, [
+    handleResetState,
+    onBeforeSwipe,
+    handleOnSwipe,
+  ]);
 
-  const handleOnDragStart = withX((start: number) => {
+  const handleOnDragStart = React.useCallback(withX((start: number) => {
     if (stateRef.current.swiped) {
       return;
     }
@@ -125,9 +136,9 @@ const SwipeableWrapper = (props: SwipeableWrapperProps) => {
       moving: true,
       start,
     });
-  });
+  }), []);
 
-  const handleOnDragEnd = () => {
+  const handleOnDragEnd = React.useCallback(() => {
     if (stateRef.current.swiped || !stateRef.current.moving) {
       return;
     }
@@ -138,9 +149,13 @@ const SwipeableWrapper = (props: SwipeableWrapperProps) => {
     }
 
     handleResetState();
-  };
+  }, [
+    handleOnBeforeSwipe,
+    handleResetState,
+    swipeThreshold,
+  ]);
 
-  const handleOnDragMove = withX((end: number) => {
+  const handleOnDragMove = React.useCallback(withX((end: number) => {
     if (stateRef.current.swiped || !stateRef.current.moving) {
       return;
     }
@@ -149,9 +164,9 @@ const SwipeableWrapper = (props: SwipeableWrapperProps) => {
       ...stateRef.current,
       offset: getOffset(stateRef.current.start, end),
     });
-  });
+  }), []);
 
-  const handleForceSwipe = (direction: directionEnum) => {
+  const handleForceSwipe = React.useCallback((direction: directionEnum) => {
     if (stateRef.current.swiped) {
       return;
     }
@@ -163,7 +178,9 @@ const SwipeableWrapper = (props: SwipeableWrapperProps) => {
     });
 
     handleOnBeforeSwipe(direction);
-  };
+  }, [
+    handleOnBeforeSwipe,
+  ]);
 
   React.useEffect(() => {
     window.addEventListener('touchmove', handleOnDragMove);
@@ -177,7 +194,10 @@ const SwipeableWrapper = (props: SwipeableWrapperProps) => {
       window.removeEventListener('touchend', handleOnDragEnd);
       window.removeEventListener('mouseup', handleOnDragEnd);
     };
-  }, []);
+  }, [
+    handleOnDragMove,
+    handleOnDragEnd,
+  ]);
 
   return (
     <Swipeable
