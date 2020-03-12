@@ -2,7 +2,7 @@
   "name": "react-deck-swiper",
   "author": "Pedro Bini",
   "repository": "pedro-lb/react-deck-swiper",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "license": "ISC",
   "description": "React.js tinder-like swipeable component",
   "main": "dist/index.js",
