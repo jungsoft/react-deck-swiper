@@ -59,7 +59,9 @@
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.18.3",
-    "eslint-plugin-react-hooks": "^1.7.0",
+    "eslint-plugin-react-hooks": "^2.5.0",
+    "react": "16.8.6",
+    "react-dom": "16.8.6",
     "rollup": "^1.1.2",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-commonjs": "^9.2.0",
@@ -67,9 +69,7 @@
     "rollup-plugin-peer-deps-external": "^2.2.0",
     "rollup-plugin-typescript2": "^0.17.0",
     "rollup-plugin-url": "^2.1.0",
-    "typescript": "^3.7.5",
-    "react": "16.8.6",
-    "react-dom": "16.8.6"
+    "typescript": "^3.7.5"
   },
   "peerDependencies": {
     "react": "^16.8.6",

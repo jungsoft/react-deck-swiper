@@ -35,11 +35,14 @@ module.exports = {
   },
   plugins: [
     'react',
+    'react-hooks',
     '@typescript-eslint',
   ],
   rules: {
     "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".jsx"] }],
     "jsx-a11y/no-static-element-interactions": 0,
+    "react-hooks/exhaustive-deps": "warn",
+    "react-hooks/rules-of-hooks": "error",
     "import/prefer-default-export": 0,
     "react/jsx-props-no-spreading": 0,
     "import/extensions": 0,
