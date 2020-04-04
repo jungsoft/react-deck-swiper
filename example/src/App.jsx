@@ -116,10 +116,18 @@ const App = () => {
           >
             Pedro Bini
           </a>
+          {' @ '}
+          <a
+            href="https://jungsoft.io/"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Jungsoft
+          </a>
         </Typography>
 
         <a
-          href="https://github.com/pedro-lb/react-deck-swiper"
+          href="https://github.com/jungsoft/react-deck-swiper"
           rel="noopener noreferrer"
           className={classes.marginTop1}
           target="_blank"

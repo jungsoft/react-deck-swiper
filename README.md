@@ -8,7 +8,7 @@ This is a simple React module that introduces a tinder-like swipeable component.
 
 ## Preview
 
-Online example [here](https://pedro-lb.github.io/react-deck-swiper/).
+Online example [here](https://jungsoft.github.io/react-deck-swiper/).
 
 ## Install
 
@@ -76,12 +76,14 @@ Name | Type | Required | Default value | Description
 
 ## Contributing
 
-Pull requests are welcome! If you have any feedback, issue or suggestion, feel free to open [a new issue](https://github.com/pedro-lb/react-deck-swiper/issues/new) so we can talk about it 💬.
+Pull requests are welcome! If you have any feedback, issue or suggestion, feel free to open [a new issue](https://github.com/jungsoft/react-deck-swiper/issues/new) so we can talk about it 💬.
 
 ## License
 
-MIT © [pedro-lb](https://github.com/pedro-lb)
+MIT
 
 ## Special Thanks
 
 Thanks to [goncy](https://github.com/goncy/) for the first version of this lib.
+
+Made with ❤️ by [Pedro Bini](https://github.com/pedro-lb/) @ [Jungsoft](https://jungsoft.io/).
