@@ -30,12 +30,12 @@ export interface SwipeableWrapperProps {
   children: React.ReactChild,
   renderButtons?: (payload: RenderButtonsPayload) => React.Component,
   onBeforeSwipe?: (
-    forceSwipe: (direction: directionEnum) => void,
-    cancelSwipe: () => void,
-    direction: directionEnum,
+      forceSwipe: (direction: directionEnum) => void,
+      cancelSwipe: () => void,
+      direction: directionEnum,
   ) => void,
   onSwipe?: (
-    direction: directionEnum,
+      direction: directionEnum,
   ) => void,
   onOpacityChange?: (opacity: number) => void,
   onAfterSwipe?: () => void,
@@ -43,6 +43,7 @@ export interface SwipeableWrapperProps {
   wrapperWidth?: string,
   swipeThreshold?: number,
   fadeThreshold?: number,
+  disabled?: boolean,
 }
 
 export interface SwipeableState {
@@ -115,9 +116,9 @@ const SwipeableWrapper = (props: SwipeableWrapperProps) => {
     }
 
     onBeforeSwipe(
-      (_direction: directionEnum) => handleOnSwipe(_direction || direction),
-      handleResetState,
-      direction,
+        (_direction: directionEnum) => handleOnSwipe(_direction || direction),
+        handleResetState,
+        direction,
     );
   }, [
     handleResetState,
@@ -126,7 +127,7 @@ const SwipeableWrapper = (props: SwipeableWrapperProps) => {
   ]);
 
   const handleOnDragStart = React.useCallback(withX((start: number) => {
-    if (stateRef.current.swiped) {
+    if (props.disabled || stateRef.current.swiped) {
       return;
     }
 
@@ -156,7 +157,7 @@ const SwipeableWrapper = (props: SwipeableWrapperProps) => {
   ]);
 
   const handleOnDragMove = React.useCallback(withX((end: number) => {
-    if (stateRef.current.swiped || !stateRef.current.moving) {
+    if (props.disabled || stateRef.current.swiped || !stateRef.current.moving) {
       return;
     }
 
@@ -200,12 +201,12 @@ const SwipeableWrapper = (props: SwipeableWrapperProps) => {
   ]);
 
   return (
-    <Swipeable
-      handleOnDragStart={handleOnDragStart}
-      handleForceSwipe={handleForceSwipe}
-      state={stateRef.current}
-      {...props}
-    />
+      <Swipeable
+          handleOnDragStart={handleOnDragStart}
+          handleForceSwipe={handleForceSwipe}
+          state={stateRef.current}
+          {...props}
+      />
   );
 };
 

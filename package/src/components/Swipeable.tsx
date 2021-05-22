@@ -22,9 +22,11 @@ const Swipeable = ({
   handleForceSwipe,
   onOpacityChange,
   renderButtons,
+  disabled,
   children,
   state,
 }: SwipeableProps) => {
+
   const springProps = useSpring({
     immediate: state.pristine || (!state.forced && Math.abs(state.offset) >= swipeThreshold),
     config: {
@@ -50,10 +52,10 @@ const Swipeable = ({
   // so we can't access properties from useSpring.
 
   // eslint-disable-next-line
-  const opacity = springProps['opacity'].value;
+  const opacity = disabled ? 1 : springProps['opacity'].value;
 
   // eslint-disable-next-line
-  const offset = springProps['offset'].value;
+  const offset = disabled ? 0 : springProps['offset'].value;
 
   const animatedStyle = {
     ...springProps,
