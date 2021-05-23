@@ -30,12 +30,12 @@ export interface SwipeableWrapperProps {
   children: React.ReactChild,
   renderButtons?: (payload: RenderButtonsPayload) => React.Component,
   onBeforeSwipe?: (
-      forceSwipe: (direction: directionEnum) => void,
-      cancelSwipe: () => void,
-      direction: directionEnum,
+    forceSwipe: (direction: directionEnum) => void,
+    cancelSwipe: () => void,
+    direction: directionEnum,
   ) => void,
   onSwipe?: (
-      direction: directionEnum,
+    direction: directionEnum,
   ) => void,
   onOpacityChange?: (opacity: number) => void,
   onAfterSwipe?: () => void,
@@ -116,9 +116,9 @@ const SwipeableWrapper = (props: SwipeableWrapperProps) => {
     }
 
     onBeforeSwipe(
-        (_direction: directionEnum) => handleOnSwipe(_direction || direction),
-        handleResetState,
-        direction,
+      (_direction: directionEnum) => handleOnSwipe(_direction || direction),
+      handleResetState,
+      direction,
     );
   }, [
     handleResetState,
@@ -201,12 +201,12 @@ const SwipeableWrapper = (props: SwipeableWrapperProps) => {
   ]);
 
   return (
-      <Swipeable
-          handleOnDragStart={handleOnDragStart}
-          handleForceSwipe={handleForceSwipe}
-          state={stateRef.current}
-          {...props}
-      />
+    <Swipeable
+      handleOnDragStart={handleOnDragStart}
+      handleForceSwipe={handleForceSwipe}
+      state={stateRef.current}
+      {...props}
+    />
   );
 };
 
