@@ -43,6 +43,7 @@ export interface SwipeableWrapperProps {
   wrapperWidth?: string,
   swipeThreshold?: number,
   fadeThreshold?: number,
+  disabled?: boolean,
 }
 
 export interface SwipeableState {
@@ -126,7 +127,7 @@ const SwipeableWrapper = (props: SwipeableWrapperProps) => {
   ]);
 
   const handleOnDragStart = React.useCallback(withX((start: number) => {
-    if (stateRef.current.swiped) {
+    if (props.disabled || stateRef.current.swiped) {
       return;
     }
 
@@ -156,7 +157,7 @@ const SwipeableWrapper = (props: SwipeableWrapperProps) => {
   ]);
 
   const handleOnDragMove = React.useCallback(withX((end: number) => {
-    if (stateRef.current.swiped || !stateRef.current.moving) {
+    if (props.disabled || stateRef.current.swiped || !stateRef.current.moving) {
       return;
     }
 
